@@ -84,35 +84,28 @@
                 </form>
                 <p><button type="button" class="btn btn-primary" id="submit-vote">Submit</button></p>
             </div><!--span3-->
-            <div class="span9"></div><!--span9-->
+            <div class="span9">
+                <div id="graph-pie"></div>
+                <div id="graph-bar"></div>
+            </div><!--span9-->
         </div><!--row-fluid-->
     </div><!--container-fluid-->
     
     
-    <div class="main-content"></div>
-      <div id="home-page" class="page-item page-padded"></div>
-      <!--<div id="blog-page" class="page-item">blog</div>-->
-      <div id="cv-page" class="page-item page-padded"></div>
-      <div id="contact-page" class="page-item page-padded"></div>
-      <div id="projects-page" class="page-item"></div>
-    <hr>
-
-  </div>
-  
-  <footer role='contentinfo' id='footer'>
-    <div class='container'>
-      <p>&copy; Panagiotis Terzis 2013</p>
-    </div>
-  </footer>
+    <footer role='contentinfo' id='footer'>
+        <div class='container'>
+            <p>&copy; Panagiotis Terzis 2013</p>
+        </div>
+    </footer>
 
 
-  <script src="/static/js/jquery-1.9.1.min.js"></script>
-  <script src="/static/js/bootstrap.min.js"></script>
-  <script src="http://openlayers.org/dev/OpenLayers.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="/static/js/interface.js"></script>
-  
-  <script>
+    <script src="/static/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="http://openlayers.org/dev/OpenLayers.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="/static/js/interface.js"></script>
+    
+    <script>
     $(document).ready(function(){
         $(document).ajaxSend(fixAjax);
       
@@ -147,16 +140,18 @@
                 data: $("#vote-form").serialize(),
                 success: function(data){
                     giveFeedback(data.msg);
+                    $("#graph-bar").html("");
+                    $("#graph-pie").html("");
+                    var grapher = new Grapher("graph-pie", data.results.question1);
+                    grapher.createPieChart("category", "answers")
+                    grapher = new Grapher("graph-bar", data.results.question2);
+                    grapher.createBarChart("candidate", "votes")
                 }
             })
         });
       
-      
-      
     });
     
-    
-    
-  </script>
+    </script>
 </body>
 </html>

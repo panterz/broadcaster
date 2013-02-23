@@ -75,6 +75,6 @@ def submit_vote(request):
     total_rows = cursor.fetchall()
     logger.debug(total_rows)
     
-    results = {"question1": {"yes": yes, "no": no}, "question2" : total_rows}
+    results = {"question1": [{"category": "yes", "answers": yes}, {"category": "no", "answers": no}], "question2" : total_rows}
     
     return HttpResponse(json.dumps({"error": 0, "msg": "Your vote has been saved!", "results": results}), mimetype="application/json")
