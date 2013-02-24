@@ -19,9 +19,10 @@ def deploy_local():
 def devel():
     """Defines devel environment"""
     env.user = prompt('Type the name of the user ')
-    env.hosts = prompt('Type the name of the host')
+    host = prompt('Type the name of the host')
+    env.hosts = [host,]
     env.base_dir = "/home/%s/dist" %(env.user)
-    env.app_name = "broadcaster"
+    env.app_name = "polls"
     env.domain_path = "%(base_dir)s/%(app_name)s" % { 'base_dir':env.base_dir, 'app_name':env.app_name }
     env.current_path = "%(domain_path)s/current" % { 'domain_path':env.domain_path }
     env.releases_path = "%(domain_path)s/releases" % { 'domain_path':env.domain_path }
